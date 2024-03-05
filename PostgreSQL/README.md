@@ -148,3 +148,85 @@ WHERE salary > 50000;
 The COUNT function can also be combined with other SQL functions and clauses, such as DISTINCT, GROUP BY, HAVING, and JOIN, to perform more complex calculations and analysis on the data.
 
 It's important to note that the COUNT function always returns an integer value representing the number of rows that match the specified condition. If there are no matching rows, COUNT will return 0.
+
+# WHERE CLAUSE
+ "where" clause is used to specify a condition while retrieving data from a database. It allows you to filter records based on specified criteria. Here's a basic example:
+
+```sql
+Copy code
+SELECT column1, column2
+FROM table_name
+```
+WHERE condition;
+In this syntax:
+
+"SELECT" specifies the columns you want to retrieve.
+"FROM" specifies the table you're retrieving data from.
+"WHERE" specifies the condition that must be met for a record to be included in the result set.
+For instance, if you have a table called "employees" and you want to retrieve the names of all employees who are in the sales department, you would use a query like this:
+
+```sql
+Copy code
+SELECT name
+FROM employees
+WHERE department = 'Sales';
+```
+This query will return the names of all employees where the department column equals 'Sales'. The "where" clause allows you to narrow down your results to only include records that meet specific criteria.
+
+
+**Equality: Check if a column is equal to a specific value.**
+
+```sql
+Copy code
+WHERE column_name = value
+```
+**Inequality: Check if a column is not equal to a specific value.**
+
+```sql
+Copy code
+WHERE column_name <> value
+```
+**Range: Check if a column's value falls within a range.**
+
+```sql
+Copy code
+WHERE column_name BETWEEN value1 AND value2
+```
+**NULL: Check if a column is NULL.**
+
+```sql
+Copy code
+WHERE column_name IS NULL
+```
+**NOT NULL: Check if a column is not NULL.**
+
+```sql
+Copy code
+WHERE column_name IS NOT NULL
+```
+**Pattern Matching: Use wildcards to search for patterns in string values.**
+
+```sql
+Copy code
+WHERE column_name LIKE 'pattern'
+```
+**Logical Operators: Use logical operators (AND, OR, NOT) to combine conditions.**
+
+```sql
+Copy code
+WHERE condition1 AND condition2
+WHERE condition1 OR condition2
+WHERE NOT condition
+```
+**IN: Check if a column's value is within a list of specified values.**
+
+```sql
+Copy code
+WHERE column_name IN (value1, value2, ...)
+```
+**NOT IN: Check if a column's value is not within a list of specified values.**
+
+```sql
+Copy code
+WHERE column_name NOT IN (value1, value2, ...)
+```
