@@ -30,7 +30,6 @@ pgAdmin is a popular open-source graphical user interface (GUI) administration t
 A SELECT query is one of the most fundamental operations in SQL (Structured Query Language) used to retrieve data from a database table or multiple tables. The basic syntax of a SELECT query is as follows:
 
 ```sql
-Copy code
 SELECT column1, column2, ...
 FROM table_name;
 ```
@@ -43,7 +42,6 @@ table_name is the name of the table from which you want to retrieve data.
 For example, suppose you have a table named employees with columns employee_id, first_name, last_name, and salary. To retrieve the first_name and last_name of all employees from the employees table, you can write the following SELECT query:
 
 ```sql
-Copy code
 SELECT first_name, last_name
 FROM employees;
 ```
@@ -51,7 +49,6 @@ FROM employees;
 If you want to retrieve all columns from the employees table, you can use the wildcard *:
 
 ```sql
-Copy code
 SELECT *
 FROM employees;
 ```
@@ -61,7 +58,6 @@ You can also include additional clauses in the SELECT query to filter or sort th
 Here's an example of a SELECT query with a WHERE clause to retrieve employees with a salary greater than 50000:
 
 ```sql
-Copy code
 SELECT employee_id, first_name, last_name, salary
 FROM employees
 WHERE salary > 50000;
@@ -75,7 +71,6 @@ A DISTINCT query in SQL is used to retrieve unique values from a specific column
 The basic syntax of a SELECT query with DISTINCT is as follows:
 
 ```sql
-Copy code
 SELECT DISTINCT column1, column2, ...
 FROM table_name;
 ```
@@ -87,7 +82,6 @@ column1, column2, ... are the columns from which you want to retrieve unique val
 For example, suppose you have a table named orders with a column named product_id that contains duplicate entries. To retrieve the unique product IDs from the orders table, you can use the following query:
 
 ```sql
-Copy code
 SELECT DISTINCT product_id
 ```
 FROM orders;
@@ -96,7 +90,6 @@ This query will return only distinct values of product_id from the orders table,
 You can also use the DISTINCT keyword with multiple columns to retrieve unique combinations of values across those columns. For example:
 
 ```sql
-Copy code
 SELECT DISTINCT column1, column2
 FROM table_name;
 ```
@@ -111,7 +104,6 @@ The COUNT function in SQL is used to count the number of rows that match a speci
 The basic syntax of the COUNT function is as follows:
 
 ```sql
-Copy code
 SELECT COUNT(*)
 FROM table_name;
 ```
@@ -120,7 +112,6 @@ This query will return the total number of rows in the specified table.
 You can also use the COUNT function with a specific column to count the number of non-null values in that column:
 
 ```sql
-Copy code
 SELECT COUNT(column_name)
 FROM table_name;
 ```
@@ -130,7 +121,6 @@ This query will count the number of non-null values in the specified column of t
 Additionally, you can use the COUNT function with a WHERE clause to count the number of rows that meet specific conditions:
 
 ```sql
-Copy code
 SELECT COUNT(*)
 FROM table_name
 ```
@@ -139,7 +129,6 @@ WHERE condition;
 For example, if you have a table named employees and you want to count the number of employees with a salary greater than 50000, you can use the following query:
 
 ```sql
-Copy code
 SELECT COUNT(*)
 FROM employees
 WHERE salary > 50000;
@@ -153,7 +142,6 @@ It's important to note that the COUNT function always returns an integer value r
  "where" clause is used to specify a condition while retrieving data from a database. It allows you to filter records based on specified criteria. Here's a basic example:
 
 ```sql
-Copy code
 SELECT column1, column2
 FROM table_name
 ```
@@ -166,7 +154,6 @@ In this syntax:
 For instance, if you have a table called "employees" and you want to retrieve the names of all employees who are in the sales department, you would use a query like this:
 
 ```sql
-Copy code
 SELECT name
 FROM employees
 WHERE department = 'Sales';
@@ -177,43 +164,36 @@ This query will return the names of all employees where the department column eq
 **Equality: Check if a column is equal to a specific value.**
 
 ```sql
-Copy code
 WHERE column_name = value
 ```
 **Inequality: Check if a column is not equal to a specific value.**
 
 ```sql
-Copy code
 WHERE column_name <> value
 ```
 **Range: Check if a column's value falls within a range.**
 
 ```sql
-Copy code
 WHERE column_name BETWEEN value1 AND value2
 ```
 **NULL: Check if a column is NULL.**
 
 ```sql
-Copy code
 WHERE column_name IS NULL
 ```
 **NOT NULL: Check if a column is not NULL.**
 
 ```sql
-Copy code
 WHERE column_name IS NOT NULL
 ```
 **Pattern Matching: Use wildcards to search for patterns in string values.**
 
 ```sql
-Copy code
 WHERE column_name LIKE 'pattern'
 ```
 **Logical Operators: Use logical operators (AND, OR, NOT) to combine conditions.**
 
 ```sql
-Copy code
 WHERE condition1 AND condition2
 WHERE condition1 OR condition2
 WHERE NOT condition
@@ -221,12 +201,182 @@ WHERE NOT condition
 **IN: Check if a column's value is within a list of specified values.**
 
 ```sql
-Copy code
 WHERE column_name IN (value1, value2, ...)
 ```
 **NOT IN: Check if a column's value is not within a list of specified values.**
 
 ```sql
-Copy code
 WHERE column_name NOT IN (value1, value2, ...)
 ```
+
+# ORDERBY CLAUSE
+
+The ORDER BY clause in SQL is used to sort the result set of a query based on one or more columns. It allows you to control the order in which the rows are returned by specifying the columns by which you want to sort and the sort direction (ascending or descending).
+
+The basic syntax of the ORDER BY clause is as follows:
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1 [ASC | DESC], column2 [ASC | DESC], ...;
+```
+Where:
+
+SELECT column1, column2, ... specifies the columns you want to retrieve in the result set.
+FROM table_name specifies the table from which you want to retrieve the data.  
+
+ORDER BY column1 [ASC | DESC], column2 [ASC | DESC], ... specifies the columns by which you want to sort the result set. You can specify one or more columns separated by commas. By default, the sort order is ascending (ASC), but you can explicitly specify descending (DESC) if you want to sort in descending order.
+For example, suppose you have a table named employees with columns employee_id, first_name, and last_name, and you want to retrieve the employees sorted by their last names in ascending order. You can use the following query:
+
+```sql
+SELECT employee_id, first_name, last_name
+FROM employees
+ORDER BY last_name ASC;
+```
+If you want to sort the employees by their last names in descending order, you can specify DESC after the column name:
+
+```sql
+SELECT employee_id, first_name, last_name
+FROM employees
+ORDER BY last_name DESC;
+```
+You can also sort the result set by multiple columns. For example, to sort the employees by their last names in ascending order and then by their first names in descending order, you can use:
+
+```sql
+SELECT employee_id, first_name, last_name
+FROM employees
+ORDER BY last_name ASC, first_name DESC;
+```
+The ORDER BY clause is commonly used to organize query results in a meaningful way, making it easier to analyze and interpret the data.
+
+# LIMIT CLAUSE
+
+The LIMIT clause in SQL is used to restrict the number of rows returned by a query. It is particularly useful when dealing with large result sets, as it allows you to retrieve only a specified number of rows from the beginning of the result set.
+
+The basic syntax of the LIMIT clause is as follows:
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+LIMIT number_of_rows;
+```
+Where:
+
+SELECT column1, column2, ... specifies the columns you want to retrieve in the result set.
+FROM table_name specifies the table from which you want to retrieve the data.
+LIMIT number_of_rows specifies the maximum number of rows to return in the result set.
+For example, if you want to retrieve the first 10 rows from a table named employees, you can use the following query:
+
+```sql
+SELECT *
+FROM employees
+LIMIT 10;
+```
+You can also use the LIMIT clause in combination with the ORDER BY clause to retrieve a specified number of rows and sort them according to a specific column or columns. For example, to retrieve the first 10 employees sorted by their last names in ascending order, you can use:
+
+```sql
+SELECT *
+FROM employees
+ORDER BY last_name ASC
+LIMIT 10;
+```
+Additionally, you can use OFFSET along with LIMIT to skip a certain number of rows before returning the result set. This is useful for implementing pagination in applications. For example, to retrieve the next 10 employees after skipping the first 10, you can use:
+
+```sql
+SELECT *
+FROM employees
+ORDER BY last_name ASC
+LIMIT 10 OFFSET 10;
+```
+This query will retrieve rows 11 to 20 from the employees table, sorted by last name in ascending order.
+
+The LIMIT clause is supported by most relational database management systems, including PostgreSQL, MySQL, SQLite, and others. However, the syntax for limiting rows may vary slightly between different database systems.
+
+# BETWEEN CLAUSE
+The BETWEEN clause in SQL is used to select values within a specified range. It allows you to specify a range of values for a column and retrieve rows where the column value falls within that range. The BETWEEN clause is inclusive, meaning it includes the start and end values of the range.
+
+The basic syntax of the BETWEEN clause is as follows:
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+```
+Where:
+
+SELECT column1, column2, ... specifies the columns you want to retrieve in the result set.
+FROM table_name specifies the table from which you want to retrieve the data.
+WHERE column_name BETWEEN value1 AND value2 specifies the column name and the range of values you want to filter on.
+For example, suppose you have a table named employees with a column named salary, and you want to retrieve employees with salaries between $50,000 and $70,000. You can use the following query:
+
+```sql
+SELECT *
+FROM employees
+WHERE salary BETWEEN 50000 AND 70000;
+```
+This query will retrieve all rows from the employees table where the salary column value falls between $50,000 and $70,000, inclusive.
+
+You can also use the BETWEEN clause with dates, strings, or any other comparable data types. For example, to retrieve orders placed between two specific dates, you can use:
+
+```sql
+SELECT *
+FROM orders
+WHERE order_date BETWEEN '2023-01-01' AND '2023-12-31';
+```
+This query will retrieve all rows from the orders table where the order_date falls between January 1, 2023, and December 31, 2023, inclusive.
+
+Keep in mind that the BETWEEN clause is inclusive, so rows with values equal to value1 or value2 are included in the result set. If you want to exclude the endpoints, you may need to use other comparison operators (such as < and >) combined with the AND operator.
+
+# IN CLAUSE
+The IN clause in SQL is used to specify multiple values for a column and retrieve rows where the column value matches any of those specified values. It allows you to simplify queries where you want to filter rows based on a list of specific values.
+
+The basic syntax of the IN clause is as follows:
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column_name IN (value1, value2, ...);
+```
+Where:
+
+SELECT column1, column2, ... specifies the columns you want to retrieve in the result set.
+FROM table_name specifies the table from which you want to retrieve the data.
+WHERE column_name IN (value1, value2, ...) specifies the column name and the list of values you want to filter on.
+For example, suppose you have a table named employees with a column named department and you want to retrieve employees who work in either the 'HR' or 'Finance' departments. You can use the following query:
+
+```sql
+SELECT *
+FROM employees
+WHERE department IN ('HR', 'Finance');
+```
+This query will retrieve all rows from the employees table where the department column value matches either 'HR' or 'Finance'.
+
+You can specify any number of values within the parentheses after the IN keyword. These values can be literals, variables, or subqueries.
+
+The IN clause can also be combined with other conditions using logical operators such as AND and OR. For example, you can retrieve employees who work in the 'HR' department and have a salary greater than $50,000 using:
+
+```sql
+SELECT *
+FROM employees
+WHERE department = 'HR' AND salary > 50000;
+```
+Or you can retrieve employees who work in either the 'HR' or 'Finance' departments and have a salary greater than $50,000 using:
+
+```sql
+SELECT *
+FROM employees
+WHERE (department = 'HR' OR department = 'Finance') AND salary > 50000;
+```
+Using the IN clause can make your queries more concise and readable, especially when dealing with multiple values or complex conditions.
+
+
+
+
+
+
+
+
+
+
+
+
