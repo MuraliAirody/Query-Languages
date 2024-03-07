@@ -516,6 +516,168 @@ FROM products;
 ```
 This query will round the price column values to the nearest integer.
 
+# GROUP BY
+The GROUP BY clause in SQL is used to group rows that have the same values into summary rows, often to perform aggregate functions (such as COUNT, SUM, AVG, etc.) on each group. It allows you to divide the rows of a table into groups based on one or more columns and perform calculations or operations on each group separately.
+
+The basic syntax of the GROUP BY clause is as follows:
+
+```sql
+SELECT column1, aggregate_function(column2)
+FROM table_name
+GROUP BY column1;
+```
+Where:
+
+SELECT column1, aggregate_function(column2) specifies the columns you want to retrieve in the result set, along with any aggregate functions you want to apply to them.
+FROM table_name specifies the table from which you want to retrieve the data.
+GROUP BY column1 specifies the column(s) you want to group by.
+
+For example, suppose you have a table named orders with columns order_id, customer_id, and total_amount, and you want to calculate the total amount spent by each customer. You can use the GROUP BY clause to group the rows by customer_id and then calculate the sum of total_amount for each group:
+
+```sql
+SELECT customer_id, SUM(total_amount) AS total_spent
+FROM orders
+GROUP BY customer_id;
+```
+This query will group the rows of the orders table by customer_id, and for each group, it will calculate the sum of total_amount, giving you the total amount spent by each customer.
+
+You can also use multiple columns in the GROUP BY clause to create more granular groups. For example, to calculate the total amount spent by each customer in each year:
+
+```sql
+SELECT customer_id, EXTRACT(YEAR FROM order_date) AS order_year, SUM(total_amount) AS total_spent
+FROM orders
+GROUP BY customer_id, EXTRACT(YEAR FROM order_date);
+```
+In this query, the rows are grouped by both customer_id and the year extracted from the order_date, allowing you to calculate the total amount spent by each customer in each year.
+
+The GROUP BY clause is a powerful tool for summarizing and analyzing data in SQL, allowing you to perform complex calculations and derive insights from your data.
+
+```sql
+select customer_id,count(customer_id) from payment
+group by customer_id
+order by count(customer_id) DESC;
+
+
+select customer_id,sum(customer_id) from payment
+group by customer_id;
+
+select Date(payment_date),count(payment_id),sum(amount) from payment
+group by Date(payment_date)
+order by sum(amount) DESC;
+```
+
+# HAVING CLAUSE
+
+The HAVING clause in SQL is used to filter the results of a GROUP BY clause based on specified conditions. It is similar to the WHERE clause, but it operates on aggregated values rather than individual rows.
+
+The basic syntax of the HAVING clause is as follows:
+
+```sql
+SELECT column1, aggregate_function(column2)
+FROM table_name
+GROUP BY column1
+HAVING condition;
+```
+Where:
+
+SELECT column1, aggregate_function(column2) specifies the columns you want to retrieve in the result set, along with any aggregate functions you want to apply to them.
+FROM table_name specifies the table from which you want to retrieve the data.
+GROUP BY column1 specifies the column(s) you want to group by.
+
+HAVING condition specifies the condition that the aggregated values must satisfy.
+For example, suppose you have a table named orders with columns customer_id and total_amount, and you want to retrieve the total amount spent by each customer only for those customers who have spent more than $1000. You can use the HAVING clause to filter the results after grouping:
+
+```sql
+SELECT customer_id, SUM(total_amount) AS total_spent
+FROM orders
+GROUP BY customer_id
+HAVING SUM(total_amount) > 1000;
+```
+In this query, the GROUP BY customer_id groups the rows by customer_id, and the HAVING SUM(total_amount) > 1000 condition filters out groups where the sum of total_amount is not greater than $1000.
+
+You can use various conditions in the HAVING clause, including comparison operators (>, <, =, etc.) and logical operators (AND, OR, NOT), to filter the aggregated values based on your requirements.
+
+The HAVING clause is particularly useful when you want to filter the results of a GROUP BY clause based on aggregated values, allowing you to perform more complex analysis and derive insights from your data.
+
+# WHERE v/s HAVING
+The WHERE and HAVING clauses in SQL are both used to filter data, but they operate at different stages of the query execution process and have distinct purposes.
+
+WHERE Clause:
+
+The WHERE clause is used to filter rows from the original dataset based on specified conditions.
+It is typically used with the SELECT, UPDATE, and DELETE statements.
+
+The conditions specified in the WHERE clause are applied to individual rows before any grouping or aggregation takes place.
+
+It filters rows based on individual row values, not on aggregated values.
+Example usage:
+```sql
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+```
+HAVING Clause:
+
+The HAVING clause is used to filter groups of rows produced by the GROUP BY clause based on specified conditions.
+It is used with the SELECT statement when you want to filter the results of a GROUP BY operation.
+The conditions specified in the HAVING clause are applied to aggregated values (e.g., SUM, COUNT, AVG) after grouping has been performed.
+
+It filters groups of rows based on aggregated values, not on individual row values.
+Example usage:
+```sql
+SELECT column1, aggregate_function(column2)
+FROM table_name
+GROUP BY column1
+HAVING condition;
+```
+In summary:
+
+Use the WHERE clause to filter individual rows based on specified conditions before any grouping or aggregation occurs.
+Use the HAVING clause to filter groups of rows based on aggregated values after grouping has been performed.
+
+
+# AS
+In SQL, the AS keyword is used to assign an alias to a column, a table, or an expression in the result set of a query. Aliases provide temporary names to the columns or tables in the result set, making it easier to refer to them in subsequent parts of the query or in application code.
+
+Here are the main uses of the AS keyword:
+
+Column Alias:
+
+```sql
+SELECT column_name AS alias_name
+FROM table_name;
+```
+This assigns an alias to a column in the result set. The alias can be used to reference the column in the output or in subsequent parts of the query.
+
+Table Alias:
+
+```sql
+SELECT t.column_name
+FROM table_name AS t;
+```
+This assigns an alias to a table in the query. It's particularly useful when you need to join the table to itself or when you have long table names and want to make the query more readable.
+
+Alias for Expressions:
+
+```sql
+SELECT column1 + column2 AS expression_alias
+FROM table_name;
+```
+This assigns an alias to an expression in the SELECT clause. It allows you to name the result of a calculation or operation.
+
+Aliases are not always required, but they can make queries more readable and maintainable, especially for complex queries or when dealing with self-joins, subqueries, or calculated fields.
+
+It's important to note that while most SQL database systems support the AS keyword for assigning aliases, it's often optional. You can typically omit AS and directly specify the alias after the column name or expression. For example:
+
+```sql
+SELECT column_name alias_name
+FROM table_name;
+```
+Both syntaxes are valid in SQL, but using AS can enhance the readability of your queries.
+
+
+
+
 
 
 
