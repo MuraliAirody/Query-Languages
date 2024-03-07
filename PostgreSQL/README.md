@@ -369,6 +369,154 @@ WHERE (department = 'HR' OR department = 'Finance') AND salary > 50000;
 ```
 Using the IN clause can make your queries more concise and readable, especially when dealing with multiple values or complex conditions.
 
+# EXTRACT
+
+In SQL, the EXTRACT function is used to extract parts of a date or time value, such as the year, month, day, hour, minute, etc. It allows you to retrieve specific components of a date or time value, which can be useful for performing calculations, comparisons, or formatting operations.
+
+The basic syntax of the EXTRACT function is as follows:
+
+```sql
+EXTRACT(field FROM source)
+```
+Where:
+
+field specifies the part of the date or time value you want to extract (e.g., 'year', 'month', 'day', 'hour', 'minute', 'second').
+source is the date or time value from which you want to extract the specified part.
+For example, if you have a table named orders with a column named order_date containing date values, you can use the EXTRACT function to retrieve the year, month, and day components of the order_date:
+
+```sql
+SELECT EXTRACT(YEAR FROM order_date) AS order_year,
+       EXTRACT(MONTH FROM order_date) AS order_month,
+       EXTRACT(DAY FROM order_date) AS order_day
+FROM orders;
+```
+This query will extract the year, month, and day components from the order_date column for each row in the orders table.
+
+You can also use the EXTRACT function with other date or time components such as 'hour', 'minute', 'second', 'timezone_hour', 'timezone_minute', etc., depending on your requirements.
+
+It's important to note that the availability of date and time components may vary depending on the SQL database system you're using. Additionally, the EXTRACT function may have different syntax or behavior in different SQL database systems, so always refer to the documentation specific to your database system for accurate usage details.
+
+<details>
+<summary><b>More about EXTRACT: </b></summary>
+EXTRACT function in combination with the WHERE clause to filter rows based on specific date or time components. For example, if you want to retrieve orders that were placed in a specific month, you can use the EXTRACT function to extract the month component from the order date and then filter based on that value. Here's an example:
+
+```sql
+SELECT *
+FROM orders
+WHERE EXTRACT(MONTH FROM order_date) = 3; -- Retrieves orders placed in March
+```
+In this query, EXTRACT(MONTH FROM order_date) extracts the month component from the order_date column for each row, and then the WHERE clause filters the result set to include only rows where the extracted month is equal to 3 (March).
+
+Similarly, you can use EXTRACT with other date or time components and combine it with WHERE to filter based on specific criteria. For example, to retrieve orders placed in the year 2023:
+
+```sql
+SELECT *
+FROM orders
+WHERE EXTRACT(YEAR FROM order_date) = 2023;
+```
+Or to retrieve orders placed on a specific day of the week (e.g., Monday):
+
+```sql
+SELECT *
+FROM orders
+WHERE EXTRACT(DOW FROM order_date) = 1; -- 1 represents Monday
+```
+
+In this query, EXTRACT(DOW FROM order_date) extracts the day of the week component (where Sunday is 0 and Monday is 1) from the order_date column for each row, and then the WHERE clause filters the result set to include only rows where the extracted day of the week is equal to 1 (Monday).
+</details>
+
+# AGGREGATE Function
+
+Aggregate functions in SQL are functions that operate on sets of rows and return a single value as a result. These functions allow you to perform calculations across multiple rows of a table and are commonly used for tasks such as summarizing data, calculating averages, finding maximum or minimum values, and counting the number of rows that meet certain criteria.
+
+Some of the most commonly used aggregate functions in SQL include:
+
+COUNT: Returns the number of rows that match a specified condition.
+
+```sql
+SELECT COUNT(*) FROM table_name; -- Count all rows in the table
+SELECT COUNT(column_name) FROM table_name WHERE 
+condition; -- Count rows that meet a condition
+```
+SUM: Calculates the sum of values in a numeric column.
+
+```sql
+SELECT SUM(column_name) FROM table_name;
+```
+AVG: Calculates the average value of a numeric column.
+
+```sql
+SELECT AVG(column_name) FROM table_name;
+```
+MAX: Returns the maximum value in a column.
+
+```sql
+SELECT MAX(column_name) FROM table_name;
+```
+MIN: Returns the minimum value in a column.
+
+```sql
+SELECT MIN(column_name) FROM table_name;
+```
+GROUP_CONCAT (specific to some databases like MySQL): Concatenates values from multiple rows into a single string.
+
+```sql
+SELECT GROUP_CONCAT(column_name) FROM table_name;
+```
+GROUP BY: Groups the result set by one or more columns and allows you to perform aggregate functions on each group separately.
+
+```sql
+SELECT column1, aggregate_function(column2)
+FROM table_name
+GROUP BY column1;
+```
+HAVING: Filters groups based on aggregate values calculated using GROUP BY.
+
+```sql
+SELECT column1, aggregate_function(column2)
+FROM table_name
+GROUP BY column1
+HAVING aggregate_function(column2) > value;
+```
+These aggregate functions are powerful tools for summarizing and analyzing data in SQL. They allow you to derive useful insights and metrics from large datasets efficiently.
+
+# ROUND Function
+The ROUND function in SQL is used to round a numeric value to a specified number of decimal places. It takes two arguments: the numeric value to be rounded and the number of decimal places to round to.
+
+The basic syntax of the ROUND function is as follows:
+
+```sql
+ROUND(numeric_expression, decimal_places)
+```
+Where:
+
+numeric_expression is the numeric value you want to round.
+decimal_places is the number of decimal places to which you want to round the numeric value.
+For example, if you have a numeric column named price in a table named products, and you want to round the prices to two decimal places, you can use the ROUND function like this:
+
+```sql
+SELECT ROUND(price, 2) AS rounded_price
+FROM products;
+```
+This query will round the price column values to two decimal places and display the rounded values as rounded_price.
+
+You can also use negative values for decimal_places to round to the nearest multiple of 10, 100, etc. For example, if you want to round to the nearest hundred, you can use:
+
+```sql
+SELECT ROUND(price, -2) AS rounded_price
+FROM products;
+```
+This query will round the price column values to the nearest hundred.
+
+Additionally, if decimal_places is omitted, the ROUND function will round to the nearest integer. For example:
+
+```sql
+SELECT ROUND(price) AS rounded_price
+FROM products;
+```
+This query will round the price column values to the nearest integer.
+
+
 
 
 
